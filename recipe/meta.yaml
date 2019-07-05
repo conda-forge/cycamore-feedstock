@@ -1,5 +1,5 @@
-{% set version = "1.5.3" %}
-{% set sha256 = "98087a8c6198b9fedabbee10abaec52c3e1521cc52055148b7294b386550e5b8" %}
+{% set version = "1.5.4" %}
+{% set sha256 = "80dba7c742731a9a89addbd59cce5c7639b0666cae1172b1f7f773b97749b606" %}
 {% set variant = "openblas" %}
 
 package:
@@ -12,7 +12,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1
+  number: 0
   skip: True  # [win or py27 or py34 or (osx and py35)]
   detect_binary_files_with_prefix: true
 

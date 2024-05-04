@@ -1,5 +1,5 @@
-{% set version = "1.5.5" %}
-{% set sha256 = "18f33b9a084678ef691fa64b164eeca185f2da69a2e294f73ee6740280b46896" %}
+{% set version = "1.6.0" %}
+{% set sha256 = "5ba4e84095a0e7e13316d9364053786a15d777bf862193401a0ea8337df0f8fc" %}
 {% set variant = "openblas" %}
 
 package:
@@ -13,7 +13,7 @@ source:
 
 build:
   number: 0
-  skip: True  # [win or osx or py<=27]
+  skip: true  # [win or osx or py<=27]
   detect_binary_files_with_prefix: true
 
 requirements:
@@ -21,6 +21,7 @@ requirements:
     - cmake
     - pkg-config
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
     - {{ compiler('cxx') }}
   host:
     - python

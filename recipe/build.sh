@@ -16,8 +16,6 @@ fi
 #export VERBOSE=1
 ${PYTHON} install.py --prefix="${PREFIX}" \
   --build_type="Release" \
-  --dont-allow-milps \
-  --deps-root="${PREFIX}" \
-  -DCMAKE_OSX_DEPLOYMENT_TARGET="${MACOSX_VERSION_MIN}" \
+  --allow-milps \
   ${skiprpath} \
-  --clean -j "${CPU_COUNT}"
+  -j "${CPU_COUNT}"

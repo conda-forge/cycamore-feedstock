@@ -9,8 +9,6 @@ fi
 UNAME="$(uname)"
 if [ "${UNAME}" == "Darwin" ]; then
   export DYLD_FALLBACK_LIBRARY_PATH="${PREFIX}/lib/cyclus:${PREFIX}/lib:${DYLD_FALLBACK_LIBRARY_PATH}"
-else
-  # export LD_LIBRARY_PATH="${PREFIX}/lib/cyclus:${PREFIX}/lib:${LD_LIBRARY_PATH}"
 fi
 
 # test that agents exist

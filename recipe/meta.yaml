@@ -16,6 +16,7 @@ build:
 requirements:
   build:
     - cmake
+    - make
     - pkg-config
     - {{ stdlib('c') }}
     - {{ compiler('c') }}
@@ -30,7 +31,9 @@ requirements:
 test:
   requires:
     - pytest
+    - pytables
   source_files:
+    - input
     - tests
 
 about:

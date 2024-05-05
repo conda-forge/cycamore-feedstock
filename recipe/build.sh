@@ -16,6 +16,8 @@ fi
 #export VERBOSE=1
 ${PYTHON} install.py --prefix="${PREFIX}" \
   --build_type="Release" \
+  -DCMAKE_C_COMPILER=${GCC} \
+  -DCMAKE_CXX_COMPILER=${CXX} \
   --allow-milps \
   ${skiprpath} \
   -j "${CPU_COUNT}"

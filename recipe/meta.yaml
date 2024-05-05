@@ -17,6 +17,7 @@ requirements:
   build:
     - cmake
     - pkg-config
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -34,7 +35,7 @@ test:
 
 about:
   home: http://fuelcycle.org/
-  license: BSD 3-Clause
+  license: BSD-3-Clause
   license_file: LICENSE.rst
   summary: "The Cyclus additional modules repository."
 

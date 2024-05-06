@@ -1,15 +1,12 @@
-{% set version = "1.5.5" %}
-{% set sha256 = "18f33b9a084678ef691fa64b164eeca185f2da69a2e294f73ee6740280b46896" %}
-{% set variant = "openblas" %}
+{% set version = "1.6.0" %}
 
 package:
   name: cycamore
   version: {{ version }}
 
 source:
-  fn: cycamore-{{ version }}-{{ sha256 }}.tar.gz
-  url: https://github.com/cyclus/cycamore/archive/{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  git_url: https://github.com/cyclus/cycamore.git
+  git_rev: 1.6.0
 
 build:
   number: 0
@@ -19,7 +16,9 @@ build:
 requirements:
   build:
     - cmake
+    - make
     - pkg-config
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
   host:
@@ -30,12 +29,16 @@ requirements:
     - cyclus {{ version }}
 
 test:
+  requires:
+    - pytest
+    - pytables
   source_files:
+    - input
     - tests
 
 about:
   home: http://fuelcycle.org/
-  license: BSD 3-clause
+  license: BSD-3-Clause
   license_file: LICENSE.rst
   summary: "The Cyclus additional modules repository."
 
@@ -47,3 +50,4 @@ extra:
     - katyhuff
     - FlanFlanagan
     - stompsjo
+    - bennibbelink

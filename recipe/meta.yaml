@@ -9,7 +9,7 @@ source:
   git_rev: 1.6.0
 
 build:
-  number: 1
+  number: 2
   skip: True  # [win or osx or py<=27]
   detect_binary_files_with_prefix: true
 
@@ -44,10 +44,9 @@ about:
 
 extra:
   recipe-maintainers:
-    - scopatz
     - gonuke
-    - bam241
     - katyhuff
     - FlanFlanagan
-    - stompsjo
     - bennibbelink
+    - munkm
+    - abachma2

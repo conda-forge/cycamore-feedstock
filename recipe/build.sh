@@ -15,9 +15,8 @@ fi
 # Install Cycamore
 #export VERBOSE=1
 ${PYTHON} install.py --prefix="${PREFIX}" \
-  --build_type="Release" \
-  --dont-allow-milps \
-  --deps-root="${PREFIX}" \
-  -DCMAKE_OSX_DEPLOYMENT_TARGET="${MACOSX_VERSION_MIN}" \
+  -DCMAKE_C_COMPILER=${GCC} \
+  -DCMAKE_CXX_COMPILER=${CXX} \
+  --allow-milps \
   ${skiprpath} \
-  --clean -j "${CPU_COUNT}"
+  -j "${CPU_COUNT}"

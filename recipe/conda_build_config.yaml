@@ -1,5 +1,5 @@
 channel_sources:
-  - conda-forge/label/dev,conda-forge
+  - conda-forge/label/cyclus_dev,conda-forge
 
 channel_targets:
-  - conda-forge dev
+  - conda-forge cycamore_dev

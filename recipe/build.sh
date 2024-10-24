@@ -14,9 +14,9 @@ fi
 
 # Install Cycamore
 #export VERBOSE=1
-${PYTHON} install.py --prefix="${PREFIX}" \
+${PYTHON} install.py \
+  --prefix=${PREFIX} \
   -DCMAKE_C_COMPILER=${GCC} \
   -DCMAKE_CXX_COMPILER=${CXX} \
   --allow-milps \
-  ${skiprpath} \
   -j "${CPU_COUNT}"

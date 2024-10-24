@@ -48,13 +48,6 @@ Current build status
                 </a>
               </td>
             </tr><tr>
-              <td>linux_64_python3.8.____cpython</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5097&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/cycamore-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_python3.8.____cpython" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>linux_64_python3.9.____cpython</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=5097&branchName=main">
@@ -79,14 +72,14 @@ Current release info
 Installing cycamore
 ===================
 
-Installing `cycamore` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `cycamore` from the `conda-forge/label/cycamore_dev` channel can be achieved by adding `conda-forge/label/cycamore_dev` to your channels with:
 
 ```
-conda config --add channels conda-forge
+conda config --add channels conda-forge/label/cycamore_dev
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `cycamore` can be installed with `conda`:
+Once the `conda-forge/label/cycamore_dev` channel has been enabled, `cycamore` can be installed with `conda`:
 
 ```
 conda install cycamore
@@ -101,26 +94,26 @@ mamba install cycamore
 It is possible to list all of the versions of `cycamore` available on your platform with `conda`:
 
 ```
-conda search cycamore --channel conda-forge
+conda search cycamore --channel conda-forge/label/cycamore_dev
 ```
 
 or with `mamba`:
 
 ```
-mamba search cycamore --channel conda-forge
+mamba search cycamore --channel conda-forge/label/cycamore_dev
 ```
 
 Alternatively, `mamba repoquery` may provide more information:
 
 ```
 # Search all versions available on your platform:
-mamba repoquery search cycamore --channel conda-forge
+mamba repoquery search cycamore --channel conda-forge/label/cycamore_dev
 
 # List packages depending on `cycamore`:
-mamba repoquery whoneeds cycamore --channel conda-forge
+mamba repoquery whoneeds cycamore --channel conda-forge/label/cycamore_dev
 
 # List dependencies of `cycamore`:
-mamba repoquery depends cycamore --channel conda-forge
+mamba repoquery depends cycamore --channel conda-forge/label/cycamore_dev
 ```
 
 

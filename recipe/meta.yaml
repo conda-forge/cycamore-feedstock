@@ -1,4 +1,4 @@
-{% set version = "1.6.0" %}
+{% set version = "dev" %}
 
 package:
   name: cycamore
@@ -6,11 +6,11 @@ package:
 
 source:
   git_url: https://github.com/cyclus/cycamore.git
-  git_rev: 1.6.0
+  git_rev: main
 
 build:
-  number: 2
-  skip: True  # [win or osx or py<=27]
+  number: 0
+  skip: true  # [win or osx]
   detect_binary_files_with_prefix: true
 
 requirements:

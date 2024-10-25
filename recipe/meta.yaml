@@ -24,8 +24,10 @@ requirements:
   host:
     - python
     - cyclus {{ version }}
+    # C/C++ Libraries
+    - libboost-headers
+    - hdf5
   run:
-    - python
     - cyclus {{ version }}
 
 test:

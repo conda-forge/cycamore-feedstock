@@ -28,6 +28,7 @@ requirements:
     - libboost-headers
     - hdf5
   run:
+    - python
     - cyclus {{ version }}
 
 test:

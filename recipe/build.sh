@@ -6,7 +6,7 @@ set -e
 ${PYTHON} install.py \
   --prefix=${PREFIX} \
   ${CMAKE_ARGS} \
-  -DCMAKE_C_COMPILER=${CC} \
+  -DCMAKE_C_COMPILER=${GCC} \
   -DCMAKE_CXX_COMPILER=${CXX} \
   --allow-milps \
   -j "${CPU_COUNT}"

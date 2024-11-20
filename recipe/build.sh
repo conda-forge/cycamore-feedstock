@@ -3,7 +3,7 @@ set -e
 
 # Install Cycamore
 #export VERBOSE=1
-${PYTHON} install.py \
+python install.py \
   --prefix=${PREFIX} \
   ${CMAKE_ARGS} \
   -DCMAKE_C_COMPILER=${CC} \

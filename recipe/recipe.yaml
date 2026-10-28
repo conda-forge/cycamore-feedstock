@@ -25,7 +25,7 @@ source:
     - patches/schedule-decommission-in-reactor-tick.patch
 
 build:
-  number: 4
+  number: 5
   skip: win
   # install.py does not use CMAKE_ARGS itself, but passes -D options to CMake, so
   # pass CMAKE_ARGS (each a -D option) to keep CMake from finding libraries and

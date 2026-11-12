@@ -15,6 +15,10 @@ source:
     # 1.91 have no CMake package for it, so requiring the system component fails;
     # same change as made to cyclus in https://github.com/cyclus/cyclus/pull/1985
     - patches/make-the-system-component-of-Boost-optional.patch
+    # (int)1e299 is INT_MIN with GCC 15, hanging SinkTest.RandomNormalFreq; upstream
+    # uses CY_LARGE_INT from https://github.com/cyclus/cycamore/pull/606, which
+    # needs a newer cyclus, so use INT_MAX instead
+    - patches/do-not-use-1e299-as-an-int-default-in-sink.patch
 
 build:
   number: 4

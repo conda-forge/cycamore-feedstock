@@ -19,6 +19,10 @@ source:
     # uses CY_LARGE_INT from https://github.com/cyclus/cycamore/pull/606, which
     # needs a newer cyclus, so use INT_MAX instead
     - patches/do-not-use-1e299-as-an-int-default-in-sink.patch
+    # Decommission() in Reactor::Tick() erases the reactor from the Timer's tickers
+    # while DoTick() iterates over them, segfaulting ReactorTests.Retire on macOS;
+    # upstream cyclus/cycamore@eedfc1d83f from https://github.com/cyclus/cycamore/pull/609
+    - patches/schedule-decommission-in-reactor-tick.patch
 
 build:
   number: 4

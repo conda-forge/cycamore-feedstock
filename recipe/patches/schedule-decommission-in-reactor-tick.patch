@@ -1,0 +1,22 @@
+From eedfc1d83f95e249ba502f5c96e6c865abc1a0d5 Mon Sep 17 00:00:00 2001
+From: Ben Nibbelink <bnibbs@vt.edu>
+Date: Tue, 28 May 2024 16:42:10 -0500
+Subject: [PATCH] SchedDecom instead of Decommission in reactor Tick
+
+---
+ src/reactor.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/reactor.cc b/src/reactor.cc
+index f1912f415..285f199d5 100644
+--- a/src/reactor.cc
++++ b/src/reactor.cc
+@@ -145,7 +145,7 @@ void Reactor::Tick() {
+       spent.Push(fresh.Pop());
+     }
+     if(CheckDecommissionCondition()) {
+-      Decommission();    
++      context()->SchedDecom(this);    
+     }
+     return;
+   }

@@ -1,0 +1,47 @@
+From ad2a1739913beaa587810e6f6f2941f3b933ca3e Mon Sep 17 00:00:00 2001
+From: Matthew Feickert <matthew.feickert@cern.ch>
+Date: Thu, 12 Nov 2026 14:25:12 -0700
+Subject: [PATCH] Do not use 1e299 as the default of the int
+ random_frequency_max
+
+random_frequency_max of the Sink is an int, but its default is 1e299,
+so the generated code converts 1e299 from double to int, which is
+undefined behaviour as it is out of range. GCC <= 13 folds it to
+INT_MAX; GCC 15 yields INT_MIN, so that with the default upper bound
+random_normal_int(mean, stddev, 1, INT_MIN) rejects every draw and
+SinkTest.RandomNormalFreq of cycamore_unit_tests never terminates.
+
+Use INT_MAX (2147483647) as the default, the value older compilers
+used. Upstream replaced 1e299 with CY_LARGE_INT in
+https://github.com/cyclus/cycamore Pull Request 606, but that
+constant needs a newer cyclus than 1.6.0.
+
+Assisted-by: ClaudeCode:claude-opus-5-5
+---
+ src/sink.h | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/src/sink.h b/src/sink.h
+index 8de1697..8ffaf68 100644
+--- a/src/sink.h
++++ b/src/sink.h
+@@ -246,13 +246,14 @@ class Sink
+   int random_frequency_min;
+ 
+   // random frequency upper bound
+-  #pragma cyclus var {"default": 1e299, \
++  // 2147483647 is INT_MAX, as a default of 1e299 does not fit in an int
++  #pragma cyclus var {"default": 2147483647, \
+                       "tooltip": "upper bound of the random frequency", \
+                       "uilabel": "Random Frequency Upper Bound", \
+                       "uitype": "range", \
+                       "range": [1, 1e299], \
+                       "doc": "When a random distribution is used to determine the " \
+-                             "frequency of the request, this is the upper bound. Default 1e299"}
++                             "frequency of the request, this is the upper bound. Default 2147483647"}
+   int random_frequency_max;
+ 
+   #pragma cyclus var { \
+-- 
+2.56.1
+

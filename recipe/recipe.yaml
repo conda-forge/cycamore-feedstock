@@ -14,7 +14,16 @@ source:
 build:
   number: 4
   skip: win
-  script: ${PYTHON} install.py --prefix="${PREFIX}" --allow-milps -j "${CPU_COUNT}"
+  # install.py does not use CMAKE_ARGS itself, but passes -D options to CMake, so
+  # pass CMAKE_ARGS (each a -D option) to keep CMake from finding libraries and
+  # frameworks on the runner (e.g. Homebrew), and pin Python3 to the host Python
+  script: >-
+    ${PYTHON} install.py
+    --prefix="${PREFIX}"
+    ${CMAKE_ARGS}
+    -DPython3_EXECUTABLE="${PYTHON}"
+    --allow-milps
+    -j "${CPU_COUNT}"
 
 requirements:
   build:

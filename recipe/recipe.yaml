@@ -27,6 +27,9 @@ requirements:
   host:
     - python
     - cyclus
+    # libcycamore links to libhdf5 and libglibmm-2.68 directly
+    - hdf5
+    - glibmm-2.68
   run:
     - python
     - cyclus ${{ version }}.*

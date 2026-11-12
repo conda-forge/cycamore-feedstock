@@ -1,0 +1,75 @@
+schema_version: 1
+
+context:
+  version: "1.6.0"
+
+package:
+  name: cycamore
+  version: ${{ version }}
+
+source:
+  url: https://github.com/cyclus/cycamore/archive/${{ version }}.tar.gz
+  sha256: 5ba4e84095a0e7e13316d9364053786a15d777bf862193401a0ea8337df0f8fc
+
+build:
+  number: 4
+  skip: win
+  script: ${PYTHON} install.py --prefix="${PREFIX}" --allow-milps -j "${CPU_COUNT}"
+
+requirements:
+  build:
+    - ${{ stdlib("c") }}
+    - ${{ compiler("c") }}
+    - ${{ compiler("cxx") }}
+    - cmake
+    - make
+    - pkgconf
+  host:
+    - python
+    - cyclus
+  run:
+    - python
+    - cyclus ${{ version }}.*
+  run_exports:
+    - ${{ pin_subpackage("cycamore", upper_bound="x.x") }}
+
+tests:
+  - package_contents:
+      lib:
+        - cyclus/libcycamore
+      bin:
+        - cycamore_unit_tests
+
+  - files:
+      source:
+        - input
+        - tests
+    requirements:
+      run:
+        - pytest
+        - pytables
+    script:
+      - cyclus -l :cycamore
+
+      - cycamore_unit_tests
+
+      - cd tests
+      - pytest -vv
+
+about:
+  license: BSD-3-Clause
+  license_file: LICENSE.rst
+  summary: The Cyclus additional modules repository.
+  homepage: http://fuelcycle.org/
+  repository: http://github.com/cyclus/cycamore
+  documentation: https://fuelcycle.org/
+
+extra:
+  recipe-maintainers:
+    - matthewfeickert
+    - gonuke
+    - katyhuff
+    - FlanFlanagan
+    - bennibbelink
+    - munkm
+    - abachma2

@@ -22,7 +22,6 @@ build:
     --prefix="${PREFIX}"
     ${CMAKE_ARGS}
     -DPython3_EXECUTABLE="${PYTHON}"
-    --allow-milps
     -j "${CPU_COUNT}"
 
 requirements:

@@ -1,0 +1,61 @@
+From ac0c165198c864f83f542ef5365f7165ca0cdcfb Mon Sep 17 00:00:00 2001
+From: Matthew Feickert <matthew.feickert@cern.ch>
+Date: Thu, 12 Nov 2026 14:14:56 -0700
+Subject: [PATCH] build: Make the system component of Boost optional
+
+CMakeLists.txt required the system component of Boost. Boost.System is
+header-only as of Boost 1.69, and what was left of the component has
+changed since:
+
+* Up to Boost 1.88 there is a compiled stub library, kept for
+  compatibility, and a CMake package for it.
+* Boost 1.89 removed the stub library, and Boost 1.89 to 1.91 have no
+  CMake package for the component either, so requiring it fails:
+
+      Could not find a package configuration file provided by
+      "boost_system" (requested version 1.90.0)
+
+* Boost 1.92 has the CMake package again, as a header-only target.
+
+Make the component optional and only link to it when it is found, which
+works with all of these. This is the same change as the one made to
+cyclus in https://github.com/cyclus/cyclus Pull Request 1985.
+
+Assisted-by: ClaudeCode:claude-opus-5-5
+---
+ CMakeLists.txt | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 18a7a1a..cf77489 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -136,15 +136,22 @@ IF(NOT CYCLUS_DOC_ONLY)
+       SET(BOOST_ROOT "${DEPS_ROOT_DIR}")
+       SET(BOOST_INCLUDEDIR "${DEPS_INCLUDE_HINTS}")
+     endif (DEPS_ROOT_DIR)
+-    FIND_PACKAGE(Boost COMPONENTS program_options filesystem system serialization REQUIRED)
++    # Boost.System is header-only as of Boost 1.69. Boost 1.89 to 1.91 have no
++    # system component at all, as 1.89 removed the compiled stub library and
++    # the CMake package only returned, as a header-only target, in 1.92. So
++    # the component is optional and is only linked to when it is found.
++    FIND_PACKAGE(Boost COMPONENTS program_options filesystem serialization REQUIRED
++                 OPTIONAL_COMPONENTS system)
+     MESSAGE("--    Boost Root: ${Boost_ROOT}")
+     MESSAGE("--    Boost Include directory: ${Boost_INCLUDE_DIR}")
+     SET(CYCAMORE_INCLUDE_DIRS ${CYCAMORE_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS})
+     MESSAGE("--    Boost Library directories: ${Boost_LIBRARY_DIRS}")
+     SET(LIBS ${LIBS} ${Boost_PROGRAM_OPTIONS_LIBRARY})
+     MESSAGE("--    Boost Program Options location: ${Boost_PROGRAM_OPTIONS_LIBRARY}")
+-    SET(LIBS ${LIBS} ${Boost_SYSTEM_LIBRARY})
+-    MESSAGE("--    Boost System location: ${Boost_SYSTEM_LIBRARY}")
++    IF(Boost_SYSTEM_FOUND)
++        SET(LIBS ${LIBS} ${Boost_SYSTEM_LIBRARY})
++        MESSAGE("--    Boost System location: ${Boost_SYSTEM_LIBRARY}")
++    ENDIF()
+     SET(LIBS ${LIBS} ${Boost_FILESYSTEM_LIBRARY})
+     MESSAGE("--    Boost Filesystem location: ${Boost_FILESYSTEM_LIBRARY}")
+     SET(LIBS ${LIBS} ${Boost_SERIALIZATION_LIBRARY})
+-- 
+2.56.1
+

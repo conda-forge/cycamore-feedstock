@@ -10,6 +10,11 @@ package:
 source:
   url: https://github.com/cyclus/cycamore/archive/${{ version }}.tar.gz
   sha256: 5ba4e84095a0e7e13316d9364053786a15d777bf862193401a0ea8337df0f8fc
+  patches:
+    # Boost 1.89 removed the compiled Boost.System stub library and Boost 1.89 to
+    # 1.91 have no CMake package for it, so requiring the system component fails;
+    # same change as made to cyclus in https://github.com/cyclus/cyclus/pull/1985
+    - patches/make-the-system-component-of-Boost-optional.patch
 
 build:
   number: 4
